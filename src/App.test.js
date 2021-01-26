@@ -1,8 +1,22 @@
-import { render, screen } from '@testing-library/react';
-import App from './App';
+import React from "react";
+import { mount } from "enzyme";
+import HomePage from "./pages/HomePage";
+import PrevJobContextProvider from "./contexts/PrevJobContextProvider";
+import App from "./App";
+import {BrowserRouter} from "react-router-dom";
 
-test('renders learn react link', () => {
-  render(<App />);
-  const linkElement = screen.getByText(/learn react/i);
-  expect(linkElement).toBeInTheDocument();
+describe("Test App", () => {
+  it("renders HomePage correctly", () => {
+    const wrapper = mount(
+      <PrevJobContextProvider>
+        <BrowserRouter>
+          <App>
+            <HomePage />
+          </App>
+        </BrowserRouter>
+      </PrevJobContextProvider>
+    );
+    expect(wrapper.find(HomePage).exists()).toEqual(true);
+  });
+
 });
